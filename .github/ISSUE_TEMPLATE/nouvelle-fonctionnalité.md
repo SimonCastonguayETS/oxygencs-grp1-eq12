@@ -1,5 +1,5 @@
 ---
-name: Nouvelle fontionnalité
+name: Nouvelle fonctionnalité
 about: Description d'une nouvelle fonctionnalité à ajouter à l'application.
 title: "[NOUVELLE FONCTIONNALITÉ]"
 labels: Fonctionnalité
