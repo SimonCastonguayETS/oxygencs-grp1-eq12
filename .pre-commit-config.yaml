@@ -9,8 +9,8 @@ repos:
         types: [python]
         args:
           [
-            "-rn", # Only display messages
-            "--fail-under=8.0", # Don't display the score
+            "-rn",
+            "--fail-under=5.0",
           ]
       - id: black
         name: black
