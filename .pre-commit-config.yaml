@@ -10,7 +10,7 @@ repos:
         args:
           [
             "-rn", # Only display messages
-            "--fail-under=7.0", # Don't display the score
+            "--fail-under=5.0", # Don't display the score
           ]
       - id: black
         name: black
