@@ -22,6 +22,7 @@ class App:
 
         self.CONN_DB = psycopg2.connect(self.DATABASE_URL)
 
+
     def __del__(self):
         if self._hub_connection != None:
             self._hub_connection.stop()
