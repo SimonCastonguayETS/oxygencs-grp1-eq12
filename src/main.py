@@ -1,10 +1,13 @@
 from signalrcore.hub_connection_builder import HubConnectionBuilder
+from dotenv import load_dotenv
+from pathlib import Path
 
 import psycopg2
 import logging
 import requests
 import json
 import time
+import os
 
 
 class App:
@@ -12,14 +15,15 @@ class App:
         self._hub_connection = None
         self.TICKS = 10
 
-        # To be configured by your team
-        self.HOST = 'http://159.203.50.162'  # Setup your host here
-        self.TOKEN = 'd6d30081b5c69ca5f983'  # Setup your token here
-        self.T_MAX = '30'  # Setup your max temperature here
-        self.T_MIN = '5'  # Setup your min temperature here
-        self.DATABASE_URL = 'postgresql://user01eq12:5sLE9lGcyg3WV0h3@157.230.69.113:5432/db01eq12'  # Setup your database here
+        dotenv_path = Path('config.env')
+        load_dotenv(dotenv_path)
 
-
+        self.HOST = os.environ.get("OXYGENCS_HOST")
+        self.TOKEN = os.environ.get("OXYGENCS_TOKEN")
+        self.T_MAX = os.environ.get("OXYGENCS_T_MAX", '100')
+        self.T_MIN = os.environ.get("OXYGENCS_T_MIN", '0')
+        self.DATABASE_URL = os.environ.get("OXYGENCS_DATABASE_URL")
+        
         self.CONN_DB = psycopg2.connect(self.DATABASE_URL)
 
 
