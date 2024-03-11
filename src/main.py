@@ -14,6 +14,11 @@ class App:
     def __init__(self):
         self._hub_connection = None
         self.TICKS = 10
+        test = [
+            "asd",
+            "asd",
+            "asd"
+        ]
 
         dotenv_path = Path('config.env')
         load_dotenv(dotenv_path)
