@@ -26,14 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v1
+    - uses: psf/black@stable
       with:
-        python-version: 3.12
-    - name: Install dependencies
-      run: |
-        pip install black
-    - name: Analysing the code with black
-      run: |
-        black ./src/
+        options: "--check --verbose"
+        src: "./src"
+        jupyter: true
+        version: "21.5b1"
