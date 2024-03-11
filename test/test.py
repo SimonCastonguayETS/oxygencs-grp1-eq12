@@ -26,7 +26,7 @@ def test_ActiveHeater():
 
     app.T_MAX = '200'   # juste pour etre sure
     app.T_MIN = '100'
-    assert app.take_action(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), '5') == "TurnOnHeater2"
+    assert app.take_action(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), '5') == "TurnOnHeater"
     app.CONN_DB.close()
 
 def test_ActiveAC():

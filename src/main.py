@@ -14,22 +14,18 @@ class App:
     def __init__(self):
         self._hub_connection = None
         self.TICKS = 10
-        test = [
-            "asd",
-            "asd",
-            "asd"
-        ]
+        test = ["asd", "asd", "asd"]
 
-        dotenv_path = Path('config.env')
+        dotenv_path = Path("config.env")
         load_dotenv(dotenv_path)
 
-        self.HOST = os.environ.get("OXYGENCS_HOST")# TEst
+        self.HOST = os.environ.get("OXYGENCS_HOST")  # TEst
         self.TOKEN = os.environ.get("OXYGENCS_TOKEN")
-        self.T_MAX = os.environ.get("OXYGENCS_T_MAX", '100')
-        self.T_MIN = os.environ.get("OXYGENCS_T_MIN", '0')
+        self.T_MAX = os.environ.get("OXYGENCS_T_MAX", "100")
+        self.T_MIN = os.environ.get("OXYGENCS_T_MIN", "0")
         self.DATABASE_URL = os.environ.get("OXYGENCS_DATABASE_URL")
 
-        try :
+        try:
             self.CONN_DB = psycopg2.connect(self.DATABASE_URL)
         except Exception as e:
             print(e)
@@ -79,7 +75,6 @@ class App:
         self.take_action(timestamp, temperature)
         self.save_event_to_database(timestamp, temperature)
 
-
     def take_action(self, timestamp, temperature):
         """Take action to HVAC depending on current temperature."""
         if float(temperature) >= float(self.T_MAX):
@@ -88,7 +83,6 @@ class App:
         elif float(temperature) <= float(self.T_MIN):
             self.send_action_to_hvac(timestamp, "TurnOnHeater")
             return "TurnOnHeater"
-
 
     def send_action_to_hvac(self, timestamp, action):
         """Send action query to the HVAC service."""
@@ -104,16 +98,18 @@ class App:
             countPreEx = self.getNumRow("HvacEvent")
 
             cursor = self.CONN_DB.cursor()
-            timestamp = timestamp.replace('T', ' ')
-            insert_query = f'''INSERT INTO "HvacEvent" (timestamp,event) VALUES (%s,%s)'''
-            record = (f'{timestamp}',f'{action}')
+            timestamp = timestamp.replace("T", " ")
+            insert_query = (
+                f"""INSERT INTO "HvacEvent" (timestamp,event) VALUES (%s,%s)"""
+            )
+            record = (f"{timestamp}", f"{action}")
 
             cursor.execute(insert_query, record)
 
             self.CONN_DB.commit()
             cursor.close()
 
-            #self.printRowCount("HvacEvent")
+            # self.printRowCount("HvacEvent")
             countFin = self.getNumRow("HvacEvent")
             return countFin == (countPreEx + 1)
 
@@ -132,9 +128,11 @@ class App:
 
             cursor = self.CONN_DB.cursor()
 
-            timestamp = timestamp.replace('T', ' ')
-            insert_query = f'''INSERT INTO "HvacTemperature" (timestamp,temp) VALUES (%s,%s)'''
-            record = (f'{timestamp}',temperature)
+            timestamp = timestamp.replace("T", " ")
+            insert_query = (
+                f"""INSERT INTO "HvacTemperature" (timestamp,temp) VALUES (%s,%s)"""
+            )
+            record = (f"{timestamp}", temperature)
 
             cursor.execute(insert_query, record)
 
@@ -149,12 +147,12 @@ class App:
             print(e)
             # To implement
             pass
-    
+
     def printRowCount(self, table):
         try:
             cursor = self.CONN_DB.cursor()
 
-            insert_query = f'''select * from "{table}";'''
+            insert_query = f"""select * from "{table}";"""
             cursor.execute(insert_query)
 
             mobile_records = cursor.fetchall()
@@ -162,7 +160,7 @@ class App:
             for row in mobile_records:
                 count = count + 1
             print("amount of row = ", count)
-            
+
             cursor.close()
             pass
         except requests.exceptions.RequestException as e:
@@ -174,7 +172,7 @@ class App:
     def getNumRow(self, table):
         try:
             cursor = self.CONN_DB.cursor()
-            insert_query = f'''select * from "{table}";'''
+            insert_query = f"""select * from "{table}";"""
             cursor.execute(insert_query)
 
             mobile_records = cursor.fetchall()
@@ -187,7 +185,8 @@ class App:
         except requests.exceptions.RequestException as e:
             print(e)
             # To implement
-            pass 
+            pass
+
 
 if __name__ == "__main__":
     app = App()
