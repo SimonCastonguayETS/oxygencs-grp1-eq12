@@ -79,8 +79,11 @@ class App:
         """Take action to HVAC depending on current temperature."""
         if float(temperature) >= float(self.T_MAX):
             self.send_action_to_hvac(timestamp, "TurnOnAc")
+            return "TurnOnAc"
         elif float(temperature) <= float(self.T_MIN):
             self.send_action_to_hvac(timestamp, "TurnOnHeater")
+            return "TurnOnHeater"
+
 
     def send_action_to_hvac(self, timestamp, action):
         """Send action query to the HVAC service."""
