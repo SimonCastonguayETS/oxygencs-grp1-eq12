@@ -3,8 +3,24 @@ name: Tests
 on: [push]
 
 jobs:
-  linting:
+  black:
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.12
+    - name: Install dependencies
+      run: |
+        pip install black
+    - name: Analysing the code with black
+      run: |
+        black ./src/ --check --verbose
+        
+  linting:
+    needs: black
     runs-on: ubuntu-latest
 
     steps:
@@ -21,19 +37,3 @@ jobs:
       run: |
         pylint ./src/ --fail-under=4.0
 
-  black:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.12
-    - name: Install dependencies
-      run: |
-        pip install black
-    - name: Analysing the code with black
-      run: |
-        black ./src/ --check --verbose
