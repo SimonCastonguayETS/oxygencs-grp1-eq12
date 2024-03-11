@@ -20,6 +20,7 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint ./src/ --fail-under=4.0
+        
   linting:
 
     runs-on: ubuntu-latest
