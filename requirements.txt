@@ -2,3 +2,4 @@ signalrcore
 psycopg2-binary
 python-dotenv
 pipenv
+pytest

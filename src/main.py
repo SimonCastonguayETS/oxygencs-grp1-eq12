@@ -23,9 +23,13 @@ class App:
         self.T_MAX = os.environ.get("OXYGENCS_T_MAX", '100')
         self.T_MIN = os.environ.get("OXYGENCS_T_MIN", '0')
         self.DATABASE_URL = os.environ.get("OXYGENCS_DATABASE_URL")
-        
-        self.CONN_DB = psycopg2.connect(self.DATABASE_URL)
 
+        try :
+            self.CONN_DB = psycopg2.connect(self.DATABASE_URL)
+        except Exception as e:
+            print(e)
+            # To implement
+            pass
 
     def __del__(self):
         if self._hub_connection != None:
@@ -89,6 +93,8 @@ class App:
         """Save action into database."""
         try:
             # To implement
+            countPreEx = self.getNumRow("HvacEvent")
+
             cursor = self.CONN_DB.cursor()
             timestamp = timestamp.replace('T', ' ')
             insert_query = f'''INSERT INTO "HvacEvent" (timestamp,event) VALUES (%s,%s)'''
@@ -99,7 +105,10 @@ class App:
             self.CONN_DB.commit()
             cursor.close()
 
-            self.printRowCount("HvacEvent")
+            #self.printRowCount("HvacEvent")
+            countFin = self.getNumRow("HvacEvent")
+            return countFin == (countPreEx + 1)
+
             pass
         except requests.exceptions.RequestException as e:
             print("from save_action_to_database\n")
@@ -111,6 +120,8 @@ class App:
         """Save sensor data into database."""
         try:
             # To implement
+            countPreEx = self.getNumRow("HvacTemperature")
+
             cursor = self.CONN_DB.cursor()
 
             timestamp = timestamp.replace('T', ' ')
@@ -122,7 +133,8 @@ class App:
             self.CONN_DB.commit()
             cursor.close()
 
-            self.printRowCount("HvacTemperature")
+            countFin = self.getNumRow("HvacTemperature")
+            return countFin == (countPreEx + 1)
             pass
         except requests.exceptions.RequestException as e:
             print("from save_event_to_database\n")
@@ -133,6 +145,7 @@ class App:
     def printRowCount(self, table):
         try:
             cursor = self.CONN_DB.cursor()
+
             insert_query = f'''select * from "{table}";'''
             cursor.execute(insert_query)
 
@@ -149,6 +162,24 @@ class App:
             print(e)
             # To implement
             pass
+
+    def getNumRow(self, table):
+        try:
+            cursor = self.CONN_DB.cursor()
+            insert_query = f'''select * from "{table}";'''
+            cursor.execute(insert_query)
+
+            mobile_records = cursor.fetchall()
+            count = 0
+            for row in mobile_records:
+                count = count + 1
+            cursor.close()
+            return count
+            pass
+        except requests.exceptions.RequestException as e:
+            print(e)
+            # To implement
+            pass 
 
 if __name__ == "__main__":
     app = App()
