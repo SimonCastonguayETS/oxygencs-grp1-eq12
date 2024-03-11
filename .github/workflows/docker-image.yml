@@ -29,7 +29,7 @@ jobs:
   checks2:
     name: Second checks
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/SimonCastonguayETS-patch-1'
 
     steps:
     - uses: actions/checkout@v2
