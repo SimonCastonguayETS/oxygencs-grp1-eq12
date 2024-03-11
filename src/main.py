@@ -18,7 +18,7 @@ class App:
         dotenv_path = Path('config.env')
         load_dotenv(dotenv_path)
 
-        self.HOST = os.environ.get("OXYGENCS_HOST")
+        self.HOST = os.environ.get("OXYGENCS_HOST")# TEst
         self.TOKEN = os.environ.get("OXYGENCS_TOKEN")
         self.T_MAX = os.environ.get("OXYGENCS_T_MAX", '100')
         self.T_MIN = os.environ.get("OXYGENCS_T_MIN", '0')
