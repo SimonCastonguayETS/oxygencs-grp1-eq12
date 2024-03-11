@@ -8,6 +8,7 @@ requests = "*"
 signalrcore = "*"
 psycopg2 = "*"
 dotenv = "*"
+pytest = "*"
 
 [dev-packages]
 
