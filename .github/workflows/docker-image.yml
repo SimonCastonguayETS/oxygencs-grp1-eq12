@@ -3,7 +3,23 @@ name: Tests
 on: [push]
 
 jobs:
+  unitTests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.12
+    - name: Install dependencies
+      run: |
+        pip install pytest
+    - name: Testing
+      run: |
+        pytest test/test.py
   linting:
+    needs: unitTests
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +36,7 @@ jobs:
       run: |
         pylint ./src/ --fail-under=4.0
   black:
+    needs: unitTests
     runs-on: ubuntu-latest
 
     steps:
