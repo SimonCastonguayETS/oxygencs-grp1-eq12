@@ -14,7 +14,6 @@ class App:
     def __init__(self):
         self._hub_connection = None
         self.TICKS = 10
-        test = ["asd", "asd", "asd"]
 
         # Path for Docker environment
         docker_env_path = Path("/usr/src/app/config.env")
