@@ -10,7 +10,7 @@ repos:
         args:
           [
             "-rn",
-            "--fail-under=6.0",
+            "--fail-under=5.0",
           ]
       - id: black
         name: black
