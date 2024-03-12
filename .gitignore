@@ -137,3 +137,4 @@ deploy_rsa.pub
 
 # Kubernetes config
 kubeconfig.yaml
+step.txt

@@ -8,15 +8,21 @@ This application uses `pipenv`, a tool that aims to bring the best of all packag
 
 ## Requierements
 
-- Python 3.8+
-- pipenv
+- Python 3.12+
+- pip
 
 ## Getting Started
+Creation and action of the virtual environnement
+
+```bash
+py -m venv .venv
+.venv\Scripts\activate
+```
 
 Install the project's dependencies :
 
 ```bash
-pipenv install
+pip install -r requirements.txt
 ```
 
 ## Setup
@@ -44,6 +50,14 @@ If you want to work on this program, please setup the pre-commit hook using the 
 ```bash
 pip install pre-commit
 pre-commit install
+```
+
+## Running the test
+
+After setup, you can start the test with the following command:
+
+```bash
+pytest test/test.py
 ```
 
 ## Logging
