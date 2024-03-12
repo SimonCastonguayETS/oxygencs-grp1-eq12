@@ -60,6 +60,20 @@ After setup, you can start the test with the following command:
 pytest test/test.py
 ```
 
+## Generating the Docker image
+
+After starting docker hub localy on your desktop you can run the following command in the root folder of the project:
+
+```bash
+docker build -t your_image_name .
+```
+
+here is an example if you want to run the image localy : 
+
+```bash
+docker run -p 4000:80 your_image_name
+```
+
 ## Logging
 
 The application logs important events such as connection open/close and error events to help in troubleshooting.
