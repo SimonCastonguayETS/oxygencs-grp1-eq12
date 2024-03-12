@@ -1,0 +1,51 @@
+name: CI
+
+on: [push]
+
+jobs:
+  checks:
+    name: Initial checks
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.12
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Testing
+      run: |
+        pytest test/test.py
+    - name: Analysing the code with pylint
+      run: |
+        pylint ./src/ --fail-under=4.0
+    - name: Analysing the code with black
+      run: |
+        black ./src/ --check --verbose
+  docker:
+    needs: [checks]
+    name: Docker image and deployment
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          dbougie/log680eq12
+        # generate Docker tags based on the following events/attributes
+        tags: |
+          latest
+          type=sha     
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+    
