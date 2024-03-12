@@ -20,4 +20,15 @@ repos:
         args:
           [
             "./src/",
+            "--check"
+          ]
+      
+      - id: pytest
+        name: pytest
+        entry: pytest
+        language: system
+        types: [python]
+        args:
+          [
+            "test/test.py",
           ]
