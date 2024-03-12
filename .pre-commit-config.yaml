@@ -1,1 +1,34 @@
 ## To implement
+repos:
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args:
+          [
+            "-rn",
+            "--fail-under=5.0",
+          ]
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: [python]
+        args:
+          [
+            "./src/",
+            "--check"
+          ]
+      
+      - id: pytest
+        name: pytest
+        entry: pytest
+        language: system
+        types: [python]
+        args:
+          [
+            "test/test.py",
+          ]

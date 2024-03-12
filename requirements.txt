@@ -3,5 +3,6 @@ psycopg2-binary
 python-dotenv
 pipenv
 pytest
-black
 pylint
+black
+pre-commit

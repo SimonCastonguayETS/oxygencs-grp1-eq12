@@ -43,6 +43,15 @@ After setup, you can start the program with the following command:
 pipenv run start
 ```
 
+## Development
+
+If you want to work on this program, please setup the pre-commit hook using the following commands:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
 ## Running the test
 
 After setup, you can start the test with the following command:
