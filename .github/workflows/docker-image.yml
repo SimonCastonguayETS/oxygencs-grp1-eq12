@@ -31,9 +31,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: |
-        docker build -t dbougie/log680eq12:latest -t dbougie/log680eq12:image$([datetime]::now.tostring("yyyy-MM-dd:HH-mm-ss")) .
-    - name: Deploy the Docker image
-      run: |
-        docker push dbougie/log680eq12 --all-tags
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          dbougie/log680eq12
+        # generate Docker tags based on the following events/attributes
+        tags: |
+          latest
+          type=sha     
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+    
