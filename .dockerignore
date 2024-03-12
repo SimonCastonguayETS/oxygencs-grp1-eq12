@@ -1,0 +1,13 @@
+.git
+__pycache__
+*.pyc
+.venv
+Dockerfile
+README.md
+test/
+.env
+.pre-commit-config.yaml
+Pipfile
+Pipfile.lock
+LICENSE
+requirements.txt

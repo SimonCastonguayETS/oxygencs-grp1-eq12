@@ -15,7 +15,7 @@ This application uses `pipenv`, a tool that aims to bring the best of all packag
 Creation and action of the virtual environnement
 
 ```bash
-venv .venv
+py -m venv .venv
 .venv\Scripts\activate
 ```
 

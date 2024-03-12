@@ -16,7 +16,16 @@ class App:
         self.TICKS = 10
         test = ["asd", "asd", "asd"]
 
-        dotenv_path = Path("config.env")
+        # Path for Docker environment
+        docker_env_path = Path('/usr/src/app/config.env')
+
+        # Path for local environment (assuming config.env is in the same directory as this script)
+        local_env_path = Path('config.env')
+
+        # Check if the Docker path exists, otherwise use the local path
+        dotenv_path = docker_env_path if docker_env_path.exists() else local_env_path
+
+        
         load_dotenv(dotenv_path)
 
         self.HOST = os.environ.get("OXYGENCS_HOST")  # TEst
