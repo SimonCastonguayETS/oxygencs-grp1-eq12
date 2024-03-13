@@ -43,12 +43,35 @@ After setup, you can start the program with the following command:
 pipenv run start
 ```
 
+## Development
+
+If you want to work on this program, please setup the pre-commit hook using the following commands:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
 ## Running the test
 
 After setup, you can start the test with the following command:
 
 ```bash
 pytest test/test.py
+```
+
+## Generating the Docker image
+
+After starting docker hub localy on your desktop you can run the following command in the root folder of the project:
+
+```bash
+docker build -t your_image_name .
+```
+
+here is an example if you want to run the image localy : 
+
+```bash
+docker run -p 4000:80 your_image_name
 ```
 
 ## Logging
