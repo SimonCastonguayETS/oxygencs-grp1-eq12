@@ -12,7 +12,7 @@ import os
 
 class App:
     def __init__(self):
-        # Comment
+        # Comment2
         self._hub_connection = None
         self.TICKS = 10
 
