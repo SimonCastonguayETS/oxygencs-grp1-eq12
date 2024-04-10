@@ -27,6 +27,7 @@ jobs:
         black ./src/ --check --verbose
   docker:
     needs: [checks]
+    if: github.ref == 'refs/heads/main'
     name: Docker image and deployment
     runs-on: ubuntu-latest
     steps:
