@@ -59,14 +59,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions-hub/kubectl@1.28
+    - uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
       with:
-        args: get pods
-    - name: deployment on kubernetes
-      run: |
-        kubectl apply -f hvac-control-dep.yaml 
+        args:  apply -f hvac-control-dep.yaml 
     - name: add config map
       run: |
         kubectl apply -f hvac-configmap.yaml
