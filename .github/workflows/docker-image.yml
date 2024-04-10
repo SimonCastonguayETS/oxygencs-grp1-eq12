@@ -68,7 +68,7 @@ jobs:
         commitChange: false
     - name: config cluster
       run: |
-        kubectl apply -f kubeconfig.yaml
+        kubectl apply -f kubeconf.yaml
     - name: deployment on kubernetes
       run: |
         kubectl apply -f hvac-control-dep.yaml
