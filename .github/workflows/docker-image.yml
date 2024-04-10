@@ -60,7 +60,7 @@ jobs:
     steps:
     - name: deployment on kubernetes
       run: |
-        kubectl apply -f hvac-control-dep.yaml
+        kubectl apply -f ../../hvac-control-dep.yaml
     - name: add config map
       run: |
         kubectl apply -f hvac-configmap.yaml
