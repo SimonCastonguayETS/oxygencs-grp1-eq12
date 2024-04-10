@@ -58,12 +58,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: deployment on kubernetes
-      run: |
-        kubectl apply -f hvac-control-dep.yaml
+    - uses: actions/checkout@v2
+
+    - name: deploi
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
+      with:
+        args:  apply -f hvac-control-dep.yaml 
+
+    - name: deploi restart
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
+      with:
+        args: rollout restart deployment hvac-control
+
     - name: add config map
-      run: |
-        kubectl apply -f hvac-configmap.yaml
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
+      with:
+        args:  apply -f hvac-configmap.yaml 
+
     - name: add secret
-      run: |
-        kubectl apply -f hvac-secret.yaml
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
+      with:
+        args:  apply -f hvac-secret.yaml 
