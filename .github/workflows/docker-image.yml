@@ -59,7 +59,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions-hub/kubectl@1.28.1
+    - uses: actions-hub/kubectl@1.28
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
       with:
