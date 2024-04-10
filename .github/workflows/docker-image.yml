@@ -52,4 +52,18 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-    
+  kubernetes:
+    needs: [docker]
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: deployment on kubernetes
+      run: |
+        kubectl apply -f hvac-control-dep.yaml
+    - name: add config map
+      run: |
+        kubectl apply -f hvac-configmap.yaml
+    - name: add secret
+      run: |
+        kubectl apply -f hvac-secret.yaml

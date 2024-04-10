@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hvac-control
+  namespace: grp01eq12-namespace
+  labels:
+    app: hvac-control
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hvac-control
+  template:
+    metadata:
+      labels:
+        app: hvac-control
+    spec:
+      containers:
+      - name: log680eq12
+        image: dbougie/log680eq12
+        env:
+          - name: OXYGENCS_T_MAX
+            valueFrom:
+              configMapKeyRef:
+                name: hvac-configmap
+                key: t_max
+          - name: OXYGENCS_T_MIN
+            valueFrom:
+              configMapKeyRef:
+                name: hvac-configmap
+                key: t_min
+          - name: OXYGENCS_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: hvac-configmap
+                key: host
+          - name: OXYGENCS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: hvac-secret
+                key: ox_token
+          - name: OXYGENCS_DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: hvac-secret
+                key: url_db
+        resources:
+          limits:
+            cpu: 250m
+            memory: 124M
+          requests:
+            cpu: 10m
+            memory: 64M
