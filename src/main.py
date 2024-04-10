@@ -78,6 +78,7 @@ class App:
     def on_sensor_data_received(self, data):
         """Callback method to handle sensor data on reception."""
         print(data[0]["date"] + " --> " + data[0]["data"], flush=True)
+        print("ici")
         timestamp = data[0]["date"]
         temperature = float(data[0]["data"])
         self.take_action(timestamp, temperature)
