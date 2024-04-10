@@ -58,9 +58,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
     - name: deployment on kubernetes
       run: |
-        kubectl apply -f ../../hvac-control-dep.yaml
+        kubectl apply -f hvac-control-dep.yaml
     - name: add config map
       run: |
         kubectl apply -f hvac-configmap.yaml
