@@ -60,8 +60,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: add config
+      with:
+        config_secret: ${{ secrets.KUBECONFIG }}
       run: |
-        kubectl apply -f ${{ secrets.KUBECONFIG }}
+        kubectl apply -f "$config_secret"
     - name: deployment on kubernetes
       run: |
         kubectl apply -f hvac-control-dep.yaml
