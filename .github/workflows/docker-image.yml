@@ -62,7 +62,7 @@ jobs:
     - name: Update values.yaml
       uses: fjogeleit/yaml-update-action@main
       with:
-        valueFile: 'kubeconfig.yaml'
+        valueFile: 'kubeconf.yaml'
         propertyPath: data['token']
         value: ${{ secrets.do_token }}
         commitChange: false
