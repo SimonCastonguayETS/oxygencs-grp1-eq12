@@ -58,18 +58,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: deploi
       uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
       with:
         args:  apply -f hvac-control-dep.yaml 
+
+    - name: deploi restart
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
+      with:
+        args: rollout restart deployment hvac-control
+
     - name: add config map
       uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG}}
       with:
         args:  apply -f hvac-configmap.yaml 
+
     - name: add secret
       uses: actions-hub/kubectl@master
       env:
