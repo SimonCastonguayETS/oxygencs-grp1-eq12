@@ -30,7 +30,7 @@ class App:
         self.HOST = os.environ.get("OXYGENCS_HOST")  # TEst
         self.TOKEN = os.environ.get("OXYGENCS_TOKEN")
         self.T_MAX = os.environ.get("OXYGENCS_T_MAX", "100")
-        self.T_MIN = os.environ.get("OXYGENCS_T_MIN", "0")
+        self.T_MIN = os.environ.get("OXYGENCS_T_MIN", "1")
         self.DATABASE_URL = os.environ.get("OXYGENCS_DATABASE_URL")
 
         try:
@@ -174,7 +174,6 @@ class App:
         except requests.exceptions.RequestException as e:
             print("from printRowCount\n")
             print(e)
-            # To implement
             pass
 
     def getNumRow(self, table):
@@ -192,7 +191,6 @@ class App:
             pass
         except requests.exceptions.RequestException as e:
             print(e)
-            # To implement
             pass
 
 
