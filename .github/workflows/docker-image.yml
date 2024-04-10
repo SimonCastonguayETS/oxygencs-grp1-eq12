@@ -59,11 +59,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: add config
+    - name: Update values.yaml
+      uses: fjogeleit/yaml-update-action@main
       with:
-        config_secret: ${{ secrets.KUBECONFIG }}
+        valueFile: 'kubeconfig.yaml'
+        propertyPath: data['token']
+        value: ${{ secrets.do_token }}
+        commitChange: false
+    - name: config cluster
       run: |
-        kubectl apply -f "$config_secret"
+        kubectl apply -f kubeconfig.yaml
     - name: deployment on kubernetes
       run: |
         kubectl apply -f hvac-control-dep.yaml
