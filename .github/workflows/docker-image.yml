@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   checks:
+    if: github.ref == 'refs/heads/main'
     name: Initial checks
     runs-on: ubuntu-latest
 
@@ -53,7 +54,6 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
   kubernetes:
-    needs: [docker]
     name: Deploy
     runs-on: ubuntu-latest
 
